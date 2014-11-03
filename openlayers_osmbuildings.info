@@ -1,4 +1,4 @@
-name = Openlayers OSMBuildings Layers
+name = OSMBuildings Layer
 description = Provide a new layer type and default layer from osmbuildings. 
 core = 7.x
 dependencies[] = openlayers
