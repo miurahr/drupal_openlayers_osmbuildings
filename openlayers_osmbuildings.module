@@ -1,16 +1,14 @@
 <?php
 /**
  * @file
+ * @defgroup osmbuildings: Provides osmbuildinsgs layers to OpenLayers
  * Main module file for the openlayers_osmbuildngs module.
  */
-
-require_once('openlayers_osmbuildings.inc');
-
 
 /**
  * Implements hook_ctools_plugins_api().
  */
-function olob_ctools_plugin_api($module, $api) {
+function osmbuildings_ctools_plugin_api($module, $api) {
   if ($module == "openlayers") {
     switch ($api) {
       case 'openlayers_maps':
@@ -23,7 +21,7 @@ function olob_ctools_plugin_api($module, $api) {
 /**
  * Implements hook_ctools_plugin_directory().
  */
-function olob_ctools_plugin_directory($module, $plugin) {
+function osmbuildings_ctools_plugin_directory($module, $plugin) {
   if ($module == 'openlayers' && !empty($plugin)) {
     return 'includes/' . $plugin;
   }
@@ -32,13 +30,13 @@ function olob_ctools_plugin_directory($module, $plugin) {
 /**
  * Implements hook_libraries_infos().
  */
-function olob_libraries_info() {
+function osmbuildings_libraries_info() {
   $libraries = array();
   $libraries['osmbuildings'] = array(
     'name' => 'OSMBuildings',
     'vendor url' => 'https://osmbuildings.org/',
     'download url' => 'https://raw.githubusercontent.com/kekscom/osmbuildings/master/dist/OSMBuildings-OpenLayers.js',
-    'library path' => _olob_get_path(),
+    'library path' => _osmbuildings_get_path(),
     'version' => '0.2.1b',
     'files' => array(
       'js' => array('OSMBuildings-OpenLayers.js'),
@@ -52,13 +50,29 @@ function olob_libraries_info() {
 }
 
 /**
+ * Implement layers hook.
+ */
+function osmbuildings_openlayers_layers() {
+  module_load_include('inc', 'osmbuildings', 'includes/osmbuildings_layers.inc');
+  return _osmbuildings_openlayers_layers();
+}
+
+/**
+ * Implement maps hook.
+ */
+function osmbuildings_openlayers_maps() {
+  module_load_include('inc', 'osmbuildings', 'includes/osmbuildings_maps.inc');
+  return _osmbuildings_openlayers_maps();
+}
+
+/**
  * Implements hook_openlayers_layer_types().
  */
-function olob_openlayers_layer_types() {
+function osmbuildings_openlayers_layer_types() {
   $layers['openlayers_layer_type_osmbuildings'] = array(
     'title' => t('OSM Buildings'),
-    'description' => t('Provide 3d map layer'),
-    'path' => drupal_get_path('module', 'olob') . '/includes/layer_types',
+    'description' => t('Provide 3D map layer'),
+    'path' => drupal_get_path('module', 'openlayers_osmbuildings') . '/includes/layer_types',
     'layer_type' => array(
       'file' => 'openlayers_layer_type_osmbuildings.inc',
       'class' => 'openlayers_layer_type_osmbuildings',
@@ -77,7 +91,7 @@ function olob_openlayers_layer_types() {
  *
  * @return string
  */
-function _olob_get_path() {
+function _osmbuildings_get_path() {
   $lib = libraries_get_libraries();
 
   if (isset($lib['osmbuildings'])) {
@@ -86,5 +100,5 @@ function _olob_get_path() {
     }
   }
 
-  return drupal_get_path('module', 'olob') . '/lib/osmbuildings';
+  return drupal_get_path('module', 'openlayers_osmbuildings') . '/lib/osmbuildings';
 }

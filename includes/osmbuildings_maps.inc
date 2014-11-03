@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 /**
  * @file
  * Provides hooks for integration with OpenLayers (http://drupal.org/project/openlayers)
@@ -8,8 +7,7 @@
 /**
  * Implements hook_openlayers_maps().
  */
-function olob_openlayers_maps() {
-
+function _osmbuildings_openlayers_maps() {
 
   $map = new stdClass();
   $map->api_version = 1;
@@ -36,7 +34,7 @@ function olob_openlayers_maps() {
     ),
     'default_layer' => 'osm_mapnik',
     'layers' => 
-        array('mapnik' => 'osm_mapnik_layer', 'osmbuildings' => 'osmbuildings_layer'),
+        array('osm_mapnik' => 'osm_mapnik', 'osmbuildings' => 'osmbuildings'),
     'behaviors' => array(
       'openlayers_behavior_layerswitcher' => array(),
       'openlayers_behavior_keyboarddefaults' => array(),
@@ -63,31 +61,4 @@ function olob_openlayers_maps() {
   return array(
     'osmbuildings_map' => $map,
   );
-}
-
-
-/**
- * Formatter layers
- */
-function olob_openlayers_layers() {
-  $layers = array();
-
-  $openlayers_layers = new stdClass;
-  $openlayers_layers->api_version = 1;
-  $openlayers_layers->name = 'osmbuildings_layer';
-  $openlayers_layers->title = 'OSMBuildings layer';
-  $openlayers_layers->description = 'osmbuildings';
-  $openlayers_layers->disabled = TRUE;
-  $openlayers_layers->data = array(
-    'layer_type' => 'openlayers_layer_type_vector',
-    'url' => array(
-      0 => '<please add URL>',
-    ),
-    'isBaseLayer' => FALSE,
-    'opacity' => 1.0,
-    'projection' => array('EPSG:900913'),
-  );
-  $layers[$key] = $openlayers_layers;
-
-  return $layers;
 }
