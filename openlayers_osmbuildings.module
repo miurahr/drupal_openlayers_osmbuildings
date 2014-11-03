@@ -36,7 +36,7 @@ function olob_libraries_info() {
   $libraries = array();
   $libraries['osmbuildings'] = array(
     'name' => 'OSMBuildings',
-    'vendor url' => 'https://github.com/kekscom/osmbuildings/',
+    'vendor url' => 'https://osmbuildings.org/',
     'download url' => 'https://raw.githubusercontent.com/kekscom/osmbuildings/master/dist/OSMBuildings-OpenLayers.js',
     'library path' => _olob_get_path(),
     'version' => '0.2.1b',
